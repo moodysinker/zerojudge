@@ -1,0 +1,148 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int charToValue(char c){
+    switch(c){
+    case 'M':
+        return 1000;
+    case 'D':
+        return 500;
+    case 'C':
+        return 100;
+    case 'L':
+        return 50;
+    case 'X':
+        return 10;
+    case 'V':
+        return 5;
+    case 'I':
+        return 1;
+    default:
+        return 0;
+    }
+}
+
+int RomToValue(char roman[]){
+    int length = strlen(roman);
+    int value = 0;
+
+    for(int i = 0; i < length; i++){
+        int now = charToValue(roman[i]);
+        int next = charToValue(roman[i + 1]);
+
+        if(now >= next){
+            value += now;
+        } else {
+            value -= now;
+        }
+    }
+
+    return value;
+}
+
+
+void ValueToRomAndPrint(int diff){
+    while(diff >= 1000){
+        printf("M");
+        diff -= 1000;
+    }
+
+    if(diff >= 100 && diff <= 999){
+        int h = diff / 100;
+        if(h == 9){
+            printf("CM");
+        }
+        else if(h == 4){
+            printf("CD");
+        }
+        else if(h >= 5){
+            printf("D");
+            h -= 5;
+            for( ; h > 0; h--){
+                printf("C");
+            }
+        }
+        else{
+            for( ; h > 0; h--){
+                printf("C");
+            }
+        }
+
+        diff %= 100;
+    }
+
+    if(diff >= 10 && diff <= 99){
+        int t = diff / 10;
+        if(t == 9){
+            printf("XC");
+        }
+        else if(t == 4){
+            printf("XL");
+        }
+        else if(t >= 5){
+            printf("L");
+            t -= 5;
+            for( ; t > 0; t--){
+                printf("X");
+            }
+        }
+        else{
+            for( ; t > 0; t--){
+                printf("X");
+            }
+        }
+
+        diff %= 10;
+    }
+
+    if(diff == 9){
+        printf("IX");
+    }
+    else if(diff == 4){
+        printf("IV");
+    }
+    else if(diff >= 5){
+        printf("V");
+        diff -= 5;
+        for( ; diff > 0; diff--){
+            printf("I");
+        }
+    } else {
+        for( ; diff > 0; diff--){
+            printf("I");
+        }
+    }
+
+    printf("\n");
+}
+    
+
+
+int main(void){
+
+    while(1){
+        char roman1[500];
+        scanf("%s", roman1);
+        if(roman1[0] == '#'){
+            break;
+        }
+
+        char roman2[500];
+        scanf("%s", roman2);
+
+        int value1 = RomToValue(roman1);
+        int value2 = RomToValue(roman2);
+
+        int diff = abs(value1 - value2);
+
+        if(diff == 0){
+            printf("ZERO\n");
+            continue;
+        }
+
+        ValueToRomAndPrint(diff);
+    }
+
+    return 0;
+}
