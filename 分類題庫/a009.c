@@ -1,3 +1,4 @@
+/* 解碼器 /*
 #include <stdio.h>
 #include <string.h>
 
