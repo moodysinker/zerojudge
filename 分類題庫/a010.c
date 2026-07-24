@@ -1,3 +1,4 @@
+/* 因數分解 /*
 #include <stdio.h>
 #include <math.h>
 
