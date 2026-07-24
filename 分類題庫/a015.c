@@ -1,3 +1,4 @@
+/* 矩陣的翻轉(轉置) /*
 #include <stdio.h>
 
 int main(void){
