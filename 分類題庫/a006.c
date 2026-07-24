@@ -1,3 +1,4 @@
+/* 一元二次方程式 /*
 #include <stdio.h>
 #include <math.h>
 
