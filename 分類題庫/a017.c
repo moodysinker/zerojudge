@@ -35,7 +35,7 @@ void pop_and_calc(int number_stack[], int *top_num, char operator_stack[], int *
 }
 
 int main(void) {
-    char token[100];
+    char present[100];
 
     int number_stack[200];
     int top_num = 0;
@@ -43,11 +43,11 @@ int main(void) {
     char operator_stack[200];
     int top_op = 0;
 
-    while (scanf("%s", token) != EOF) {
+    while (scanf("%s", present) != EOF) {
 
-        if (strcmp(token, "(") == 0) {
+        if (strcmp(present, "(") == 0) {
             operator_stack[top_op++] = '(';
-        } else if (strcmp(token, ")") == 0) {
+        } else if (strcmp(present, ")") == 0) {
             while (top_op > 0 && operator_stack[top_op - 1] != '(') {
                 pop_and_calc(number_stack, &top_num, operator_stack, &top_op);
             }
@@ -55,10 +55,10 @@ int main(void) {
             if (top_op > 0 && operator_stack[top_op - 1] == '(') {
                 top_op--;
             }
-        } else if (strcmp(token, "+") == 0 || strcmp(token, "-") == 0 ||
-                 strcmp(token, "*") == 0 || strcmp(token, "/") == 0 || strcmp(token, "%") == 0) {
+        } else if (strcmp(present, "+") == 0 || strcmp(present, "-") == 0 ||
+                 strcmp(present, "*") == 0 || strcmp(present, "/") == 0 || strcmp(present, "%") == 0) {
             
-            char current_op = token[0];
+            char current_op = present[0];
 
             while (top_op > 0 && priority(current_op) <= priority(operator_stack[top_op - 1])) {
                 pop_and_calc(number_stack, &top_num, operator_stack, &top_op);
@@ -66,7 +66,7 @@ int main(void) {
 
             operator_stack[top_op++] = current_op;
         } else {
-            number_stack[top_num++] = atoi(token);
+            number_stack[top_num++] = atoi(present);
         }
 
         char next_char = getchar();
